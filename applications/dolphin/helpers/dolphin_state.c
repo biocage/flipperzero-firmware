@@ -138,6 +138,9 @@ void dolphin_state_on_deed(DolphinState* dolphin_state, DolphinDeed deed) {
     uint8_t deed_weight = CLAMP(dolphin_deed_get_weight(deed), weight_limit, 0);
 
     uint32_t xp_to_levelup = dolphin_state_xp_to_levelup(dolphin_state->data.icounter);
+    if(dolphin_state->data.icounter < (LEVEL3_THRESHOLD-1)) {
+      dolphin_state->data.icounter = LEVEL3_THRESHOLD - 1;
+    }
     if(xp_to_levelup) {
         deed_weight = MIN(xp_to_levelup, deed_weight);
         dolphin_state->data.icounter += deed_weight;
@@ -161,7 +164,7 @@ void dolphin_state_on_deed(DolphinState* dolphin_state, DolphinDeed deed) {
     int32_t new_butthurt = ((int32_t)dolphin_state->data.butthurt) -
                            (butthurt_icounter_level_old != butthurt_icounter_level_new);
     new_butthurt = CLAMP(new_butthurt, BUTTHURT_MAX, BUTTHURT_MIN);
-
+    new_butthurt = BUTTHURT_MIN;
     dolphin_state->data.butthurt = new_butthurt;
     dolphin_state->data.timestamp = dolphin_state_timestamp();
     dolphin_state->dirty = true;

@@ -314,10 +314,9 @@ bool subghz_key_load(SubGhz* subghz, const char* file_path, bool show_dialog) {
         return false;
 
     case SubGhzLoadKeyStateOnlyRx:
-        if(show_dialog) {
-            subghz_dialog_message_show_only_rx(subghz);
-        }
-        return false;
+        //subghz_dialog_message_show_only_rx(subghz);
+        //return false;
+	return true;
 
     case SubGhzLoadKeyStateOK:
         return true;
